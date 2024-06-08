@@ -1,0 +1,22 @@
+{
+  "name": "tanstack-router-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite dev",
+    "route-generate": "tsr generate"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@tanstack/react-router": "^1.35.3",
+    "@tanstack/router-cli": "^1.35.4",
+    "react": "^18.3.1"
+  },
+  "devDependencies": {
+    "@tanstack/router-devtools": "^1.35.3",
+    "@tanstack/router-vite-plugin": "^1.35.4"
+  }
+}
