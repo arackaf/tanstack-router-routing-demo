@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@tanstack/react-query": "^5.40.1",
     "@tanstack/react-router": "^1.35.3",
     "@tanstack/router-cli": "^1.35.4",
     "react": "^18.3.1"
