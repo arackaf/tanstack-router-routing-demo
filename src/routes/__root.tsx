@@ -5,6 +5,16 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "../useData";
 
 export const Route = createRootRoute({
+  async beforeLoad() {
+    console.log("ROOT before load start");
+    await new Promise((res) => setTimeout(res, 1000));
+    return {
+      __root: Math.random(),
+    };
+  },
+  loader() {
+    console.log("ROOT LOADER");
+  },
   component: () => {
     return (
       <>
