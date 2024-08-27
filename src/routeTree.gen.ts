@@ -11,21 +11,21 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as AppImport } from './routes/app'
 import { Route as AboutImport } from './routes/about'
+import { Route as AppRouteImport } from './routes/app/route'
 import { Route as IndexImport } from './routes/index'
 import { Route as AppTasksImport } from './routes/app/tasks'
 import { Route as AppEditTaskidImport } from './routes/app/edit.$taskid'
 
 // Create/Update Routes
 
-const AppRoute = AppImport.update({
-  path: '/app',
+const AboutRoute = AboutImport.update({
+  path: '/about',
   getParentRoute: () => rootRoute,
 } as any)
 
-const AboutRoute = AboutImport.update({
-  path: '/about',
+const AppRouteRoute = AppRouteImport.update({
+  path: '/app',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -36,12 +36,12 @@ const IndexRoute = IndexImport.update({
 
 const AppTasksRoute = AppTasksImport.update({
   path: '/tasks',
-  getParentRoute: () => AppRoute,
+  getParentRoute: () => AppRouteRoute,
 } as any)
 
 const AppEditTaskidRoute = AppEditTaskidImport.update({
   path: '/edit/$taskid',
-  getParentRoute: () => AppRoute,
+  getParentRoute: () => AppRouteRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -55,6 +55,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRoute
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -62,26 +69,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
-    '/app': {
-      id: '/app'
-      path: '/app'
-      fullPath: '/app'
-      preLoaderRoute: typeof AppImport
-      parentRoute: typeof rootRoute
-    }
     '/app/tasks': {
       id: '/app/tasks'
       path: '/tasks'
       fullPath: '/app/tasks'
       preLoaderRoute: typeof AppTasksImport
-      parentRoute: typeof AppImport
+      parentRoute: typeof AppRouteImport
     }
     '/app/edit/$taskid': {
       id: '/app/edit/$taskid'
       path: '/edit/$taskid'
       fullPath: '/app/edit/$taskid'
       preLoaderRoute: typeof AppEditTaskidImport
-      parentRoute: typeof AppImport
+      parentRoute: typeof AppRouteImport
     }
   }
 }
@@ -90,8 +90,11 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexRoute,
+  AppRouteRoute: AppRouteRoute.addChildren({
+    AppTasksRoute,
+    AppEditTaskidRoute,
+  }),
   AboutRoute,
-  AppRoute: AppRoute.addChildren({ AppTasksRoute, AppEditTaskidRoute }),
 })
 
 /* prettier-ignore-end */
@@ -103,22 +106,22 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/about",
-        "/app"
+        "/app",
+        "/about"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/about": {
-      "filePath": "about.tsx"
-    },
     "/app": {
-      "filePath": "app.tsx",
+      "filePath": "app/route.tsx",
       "children": [
         "/app/tasks",
         "/app/edit/$taskid"
       ]
+    },
+    "/about": {
+      "filePath": "about.tsx"
     },
     "/app/tasks": {
       "filePath": "app/tasks.tsx",
