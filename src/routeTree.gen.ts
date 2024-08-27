@@ -11,16 +11,12 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as TasksImport } from './routes/tasks'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
+import { Route as AppTasksImport } from './routes/app/tasks'
+import { Route as AppEditTaskidImport } from './routes/app/edit.$taskid'
 
 // Create/Update Routes
-
-const TasksRoute = TasksImport.update({
-  path: '/tasks',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const AboutRoute = AboutImport.update({
   path: '/about',
@@ -29,6 +25,16 @@ const AboutRoute = AboutImport.update({
 
 const IndexRoute = IndexImport.update({
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AppTasksRoute = AppTasksImport.update({
+  path: '/app/tasks',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AppEditTaskidRoute = AppEditTaskidImport.update({
+  path: '/app/edit/$taskid',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -50,11 +56,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
-    '/tasks': {
-      id: '/tasks'
-      path: '/tasks'
-      fullPath: '/tasks'
-      preLoaderRoute: typeof TasksImport
+    '/app/tasks': {
+      id: '/app/tasks'
+      path: '/app/tasks'
+      fullPath: '/app/tasks'
+      preLoaderRoute: typeof AppTasksImport
+      parentRoute: typeof rootRoute
+    }
+    '/app/edit/$taskid': {
+      id: '/app/edit/$taskid'
+      path: '/app/edit/$taskid'
+      fullPath: '/app/edit/$taskid'
+      preLoaderRoute: typeof AppEditTaskidImport
       parentRoute: typeof rootRoute
     }
   }
@@ -65,7 +78,8 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren({
   IndexRoute,
   AboutRoute,
-  TasksRoute,
+  AppTasksRoute,
+  AppEditTaskidRoute,
 })
 
 /* prettier-ignore-end */
@@ -78,7 +92,8 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/",
         "/about",
-        "/tasks"
+        "/app/tasks",
+        "/app/edit/$taskid"
       ]
     },
     "/": {
@@ -87,8 +102,11 @@ export const routeTree = rootRoute.addChildren({
     "/about": {
       "filePath": "about.tsx"
     },
-    "/tasks": {
-      "filePath": "tasks.tsx"
+    "/app/tasks": {
+      "filePath": "app/tasks.tsx"
+    },
+    "/app/edit/$taskid": {
+      "filePath": "app/edit.$taskid.tsx"
     }
   }
 }
