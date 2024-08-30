@@ -1,5 +1,4 @@
-import React from "react";
-import { createFileRoute, Link, useParentMatches } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/tasks/")({
   component: Index,
