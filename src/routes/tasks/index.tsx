@@ -6,9 +6,9 @@ export const Route = createFileRoute("/tasks/")({
 
 function Index() {
   const tasks = [
-    { id: 1, title: "Task 1" },
-    { id: 2, title: "Task 2" },
-    { id: 3, title: "Task 3" },
+    { id: "1", title: "Task 1" },
+    { id: "2", title: "Task 2" },
+    { id: "3", title: "Task 3" },
   ];
 
   return (
@@ -18,7 +18,9 @@ function Index() {
         {tasks.map((t, idx) => (
           <div key={idx} className="flex gap-3">
             <div>{t.title}</div>
-            <Link to={`/tasks/edit/${t.id}`}>Edit</Link>
+            <Link to="/epics/edit/$edpicId" params={{ edpicId: t.id }}>
+              Edit
+            </Link>
           </div>
         ))}
       </div>
