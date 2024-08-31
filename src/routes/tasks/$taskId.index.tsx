@@ -1,6 +1,6 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/tasks/$taskId/edit")({
+export const Route = createFileRoute("/tasks/$taskId/")({
   component: () => {
     const { taskId } = Route.useParams();
 
@@ -9,7 +9,7 @@ export const Route = createFileRoute("/tasks/$taskId/edit")({
         <div>
           <Link to="/tasks">Back</Link>
         </div>
-        <div>Edit task {taskId}</div>
+        <div>View task {taskId}</div>
       </div>
     );
   },
