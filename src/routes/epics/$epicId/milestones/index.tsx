@@ -17,7 +17,7 @@ export const Route = createFileRoute("/epics/$epicId/milestones/")({
   validateSearch(search: Record<string, unknown>): SearchParams {
     return {
       page: Number(search.page ?? "1") ?? 1,
-      search: (search.page as string) || "",
+      search: (search.search as string) || "",
       tags: [],
     };
   },
@@ -29,11 +29,11 @@ export const Route = createFileRoute("/epics/$epicId/milestones/")({
       <div className="flex flex-col gap-3 p-3">
         <div>Epic: {epicId}</div>
         <div>Current search values</div>
-        <MilestoneSearch />
+        {/* <MilestoneSearch /> */}
         <pre>{JSON.stringify({ page, search, tags })}</pre>
-        {milestones.map((milestone) => {
+        {milestones.map((milestone, idx) => {
           return (
-            <div className="flex gap-2">
+            <div className="flex gap-2" key={idx}>
               <span>{milestone.name}</span>
               <Link from={Route.to} to="$milestoneId" params={{ epicId, milestoneId: milestone.id }}>
                 View
