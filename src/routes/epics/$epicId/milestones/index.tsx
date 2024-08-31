@@ -11,13 +11,16 @@ export const Route = createFileRoute("/epics/$epicId/milestones/")({
     const { epicId } = Route.useParams();
 
     return (
-      <div>
+      <div className="p-3">
         {milestones.map((milestone) => {
           return (
             <div className="flex gap-2">
-              <span>Milestone {milestone.name}</span>
+              <span>{milestone.name}</span>
               <Link from={Route.to} to="$milestoneId" params={{ epicId, milestoneId: milestone.id }}>
                 View
+              </Link>
+              <Link from={Route.to} to="$milestoneId/edit" params={{ epicId, milestoneId: milestone.id }}>
+                Edit
               </Link>
             </div>
           );

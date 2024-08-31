@@ -22,7 +22,8 @@ import { Route as TasksTaskIdEditImport } from './routes/tasks_.$taskId.edit'
 import { Route as EpicsEpicIdEditImport } from './routes/epics/$epicId/edit'
 import { Route as EpicsEpicIdMilestonesRouteImport } from './routes/epics/$epicId/milestones/route'
 import { Route as EpicsEpicIdMilestonesIndexImport } from './routes/epics/$epicId/milestones/index'
-import { Route as EpicsEpicIdMilestonesMilestoneIdImport } from './routes/epics/$epicId/milestones/$milestoneId'
+import { Route as EpicsEpicIdMilestonesMilestoneIdIndexImport } from './routes/epics/$epicId/milestones/$milestoneId.index'
+import { Route as EpicsEpicIdMilestonesMilestoneIdEditImport } from './routes/epics/$epicId/milestones_/$milestoneId.edit'
 
 // Create/Update Routes
 
@@ -85,10 +86,16 @@ const EpicsEpicIdMilestonesIndexRoute = EpicsEpicIdMilestonesIndexImport.update(
   } as any,
 )
 
-const EpicsEpicIdMilestonesMilestoneIdRoute =
-  EpicsEpicIdMilestonesMilestoneIdImport.update({
-    path: '/$milestoneId',
+const EpicsEpicIdMilestonesMilestoneIdIndexRoute =
+  EpicsEpicIdMilestonesMilestoneIdIndexImport.update({
+    path: '/$milestoneId/',
     getParentRoute: () => EpicsEpicIdMilestonesRouteRoute,
+  } as any)
+
+const EpicsEpicIdMilestonesMilestoneIdEditRoute =
+  EpicsEpicIdMilestonesMilestoneIdEditImport.update({
+    path: '/$epicId/milestones/$milestoneId/edit',
+    getParentRoute: () => EpicsRouteRoute,
   } as any)
 
 // Populate the FileRoutesByPath interface
@@ -165,18 +172,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TasksTaskIdIndexImport
       parentRoute: typeof TasksRouteImport
     }
-    '/epics/$epicId/milestones/$milestoneId': {
-      id: '/epics/$epicId/milestones/$milestoneId'
-      path: '/$milestoneId'
-      fullPath: '/epics/$epicId/milestones/$milestoneId'
-      preLoaderRoute: typeof EpicsEpicIdMilestonesMilestoneIdImport
-      parentRoute: typeof EpicsEpicIdMilestonesRouteImport
-    }
     '/epics/$epicId/milestones/': {
       id: '/epics/$epicId/milestones/'
       path: '/'
       fullPath: '/epics/$epicId/milestones/'
       preLoaderRoute: typeof EpicsEpicIdMilestonesIndexImport
+      parentRoute: typeof EpicsEpicIdMilestonesRouteImport
+    }
+    '/epics/$epicId/milestones/$milestoneId/edit': {
+      id: '/epics/$epicId/milestones/$milestoneId/edit'
+      path: '/$epicId/milestones/$milestoneId/edit'
+      fullPath: '/epics/$epicId/milestones/$milestoneId/edit'
+      preLoaderRoute: typeof EpicsEpicIdMilestonesMilestoneIdEditImport
+      parentRoute: typeof EpicsRouteImport
+    }
+    '/epics/$epicId/milestones/$milestoneId/': {
+      id: '/epics/$epicId/milestones/$milestoneId/'
+      path: '/$milestoneId'
+      fullPath: '/epics/$epicId/milestones/$milestoneId'
+      preLoaderRoute: typeof EpicsEpicIdMilestonesMilestoneIdIndexImport
       parentRoute: typeof EpicsEpicIdMilestonesRouteImport
     }
   }
@@ -190,11 +204,12 @@ export const routeTree = rootRoute.addChildren({
     EpicsIndexRoute,
     EpicsEpicIdMilestonesRouteRoute:
       EpicsEpicIdMilestonesRouteRoute.addChildren({
-        EpicsEpicIdMilestonesMilestoneIdRoute,
         EpicsEpicIdMilestonesIndexRoute,
+        EpicsEpicIdMilestonesMilestoneIdIndexRoute,
       }),
     EpicsEpicIdEditRoute,
     EpicsEpicIdIndexRoute,
+    EpicsEpicIdMilestonesMilestoneIdEditRoute,
   }),
   TasksRouteRoute: TasksRouteRoute.addChildren({
     TasksIndexRoute,
@@ -226,7 +241,8 @@ export const routeTree = rootRoute.addChildren({
         "/epics/",
         "/epics/$epicId/milestones",
         "/epics/$epicId/edit",
-        "/epics/$epicId/"
+        "/epics/$epicId/",
+        "/epics/$epicId/milestones/$milestoneId/edit"
       ]
     },
     "/tasks": {
@@ -248,8 +264,8 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "epics/$epicId/milestones/route.tsx",
       "parent": "/epics",
       "children": [
-        "/epics/$epicId/milestones/$milestoneId",
-        "/epics/$epicId/milestones/"
+        "/epics/$epicId/milestones/",
+        "/epics/$epicId/milestones/$milestoneId/"
       ]
     },
     "/epics/$epicId/edit": {
@@ -267,12 +283,16 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "tasks.$taskId.index.tsx",
       "parent": "/tasks"
     },
-    "/epics/$epicId/milestones/$milestoneId": {
-      "filePath": "epics/$epicId/milestones/$milestoneId.tsx",
-      "parent": "/epics/$epicId/milestones"
-    },
     "/epics/$epicId/milestones/": {
       "filePath": "epics/$epicId/milestones/index.tsx",
+      "parent": "/epics/$epicId/milestones"
+    },
+    "/epics/$epicId/milestones/$milestoneId/edit": {
+      "filePath": "epics/$epicId/milestones_/$milestoneId.edit.tsx",
+      "parent": "/epics"
+    },
+    "/epics/$epicId/milestones/$milestoneId/": {
+      "filePath": "epics/$epicId/milestones/$milestoneId.index.tsx",
       "parent": "/epics/$epicId/milestones"
     }
   }
