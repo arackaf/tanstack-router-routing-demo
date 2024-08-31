@@ -7,7 +7,7 @@ export const Route = createFileRoute("/epics/$epicId/")({
     return (
       <div>
         Viewing epic {epicId}
-        <Link from={Route.fullPath} to="./milestones">
+        <Link to="/epics/$epicId/milestones" params={{ epicId }}>
           View milestones
         </Link>
       </div>
