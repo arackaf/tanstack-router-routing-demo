@@ -16,8 +16,9 @@ import { Route as EpicsRouteImport } from './routes/epics/route'
 import { Route as IndexImport } from './routes/index'
 import { Route as TasksIndexImport } from './routes/tasks/index'
 import { Route as EpicsIndexImport } from './routes/epics/index'
+import { Route as TasksTaskIdImport } from './routes/tasks/$taskId'
 import { Route as EpicsEpicIdIndexImport } from './routes/epics/$epicId/index'
-import { Route as TasksEditTaskidImport } from './routes/tasks/edit.$taskid'
+import { Route as TasksTaskIdEditImport } from './routes/tasks/$taskId.edit'
 import { Route as EpicsEpicIdEditImport } from './routes/epics/$epicId/edit'
 import { Route as EpicsEpicIdMilestonesRouteImport } from './routes/epics/$epicId/milestones/route'
 import { Route as EpicsEpicIdMilestonesIndexImport } from './routes/epics/$epicId/milestones/index'
@@ -50,14 +51,19 @@ const EpicsIndexRoute = EpicsIndexImport.update({
   getParentRoute: () => EpicsRouteRoute,
 } as any)
 
+const TasksTaskIdRoute = TasksTaskIdImport.update({
+  path: '/$taskId',
+  getParentRoute: () => TasksRouteRoute,
+} as any)
+
 const EpicsEpicIdIndexRoute = EpicsEpicIdIndexImport.update({
   path: '/$epicId/',
   getParentRoute: () => EpicsRouteRoute,
 } as any)
 
-const TasksEditTaskidRoute = TasksEditTaskidImport.update({
-  path: '/edit/$taskid',
-  getParentRoute: () => TasksRouteRoute,
+const TasksTaskIdEditRoute = TasksTaskIdEditImport.update({
+  path: '/edit',
+  getParentRoute: () => TasksTaskIdRoute,
 } as any)
 
 const EpicsEpicIdEditRoute = EpicsEpicIdEditImport.update({
@@ -110,6 +116,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TasksRouteImport
       parentRoute: typeof rootRoute
     }
+    '/tasks/$taskId': {
+      id: '/tasks/$taskId'
+      path: '/$taskId'
+      fullPath: '/tasks/$taskId'
+      preLoaderRoute: typeof TasksTaskIdImport
+      parentRoute: typeof TasksRouteImport
+    }
     '/epics/': {
       id: '/epics/'
       path: '/'
@@ -138,12 +151,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EpicsEpicIdEditImport
       parentRoute: typeof EpicsRouteImport
     }
-    '/tasks/edit/$taskid': {
-      id: '/tasks/edit/$taskid'
-      path: '/edit/$taskid'
-      fullPath: '/tasks/edit/$taskid'
-      preLoaderRoute: typeof TasksEditTaskidImport
-      parentRoute: typeof TasksRouteImport
+    '/tasks/$taskId/edit': {
+      id: '/tasks/$taskId/edit'
+      path: '/edit'
+      fullPath: '/tasks/$taskId/edit'
+      preLoaderRoute: typeof TasksTaskIdEditImport
+      parentRoute: typeof TasksTaskIdImport
     }
     '/epics/$epicId/': {
       id: '/epics/$epicId/'
@@ -184,8 +197,8 @@ export const routeTree = rootRoute.addChildren({
     EpicsEpicIdIndexRoute,
   }),
   TasksRouteRoute: TasksRouteRoute.addChildren({
+    TasksTaskIdRoute: TasksTaskIdRoute.addChildren({ TasksTaskIdEditRoute }),
     TasksIndexRoute,
-    TasksEditTaskidRoute,
   }),
 })
 
@@ -217,8 +230,15 @@ export const routeTree = rootRoute.addChildren({
     "/tasks": {
       "filePath": "tasks/route.tsx",
       "children": [
-        "/tasks/",
-        "/tasks/edit/$taskid"
+        "/tasks/$taskId",
+        "/tasks/"
+      ]
+    },
+    "/tasks/$taskId": {
+      "filePath": "tasks/$taskId.tsx",
+      "parent": "/tasks",
+      "children": [
+        "/tasks/$taskId/edit"
       ]
     },
     "/epics/": {
@@ -241,9 +261,9 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "epics/$epicId/edit.tsx",
       "parent": "/epics"
     },
-    "/tasks/edit/$taskid": {
-      "filePath": "tasks/edit.$taskid.tsx",
-      "parent": "/tasks"
+    "/tasks/$taskId/edit": {
+      "filePath": "tasks/$taskId.edit.tsx",
+      "parent": "/tasks/$taskId"
     },
     "/epics/$epicId/": {
       "filePath": "epics/$epicId/index.tsx",
