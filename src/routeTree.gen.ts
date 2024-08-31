@@ -18,7 +18,7 @@ import { Route as TasksIndexImport } from './routes/tasks.index'
 import { Route as EpicsIndexImport } from './routes/epics/index'
 import { Route as TasksTaskIdIndexImport } from './routes/tasks.$taskId.index'
 import { Route as EpicsEpicIdIndexImport } from './routes/epics/$epicId/index'
-import { Route as TasksTaskIdEditImport } from './routes/tasks.$taskId.edit'
+import { Route as TasksTaskIdEditImport } from './routes/tasks_.$taskId.edit'
 import { Route as EpicsEpicIdEditImport } from './routes/epics/$epicId/edit'
 import { Route as EpicsEpicIdMilestonesRouteImport } from './routes/epics/$epicId/milestones/route'
 import { Route as EpicsEpicIdMilestonesIndexImport } from './routes/epics/$epicId/milestones/index'
@@ -62,8 +62,8 @@ const EpicsEpicIdIndexRoute = EpicsEpicIdIndexImport.update({
 } as any)
 
 const TasksTaskIdEditRoute = TasksTaskIdEditImport.update({
-  path: '/$taskId/edit',
-  getParentRoute: () => TasksRouteRoute,
+  path: '/tasks/$taskId/edit',
+  getParentRoute: () => rootRoute,
 } as any)
 
 const EpicsEpicIdEditRoute = EpicsEpicIdEditImport.update({
@@ -146,10 +146,10 @@ declare module '@tanstack/react-router' {
     }
     '/tasks/$taskId/edit': {
       id: '/tasks/$taskId/edit'
-      path: '/$taskId/edit'
+      path: '/tasks/$taskId/edit'
       fullPath: '/tasks/$taskId/edit'
       preLoaderRoute: typeof TasksTaskIdEditImport
-      parentRoute: typeof TasksRouteImport
+      parentRoute: typeof rootRoute
     }
     '/epics/$epicId/': {
       id: '/epics/$epicId/'
@@ -198,9 +198,9 @@ export const routeTree = rootRoute.addChildren({
   }),
   TasksRouteRoute: TasksRouteRoute.addChildren({
     TasksIndexRoute,
-    TasksTaskIdEditRoute,
     TasksTaskIdIndexRoute,
   }),
+  TasksTaskIdEditRoute,
 })
 
 /* prettier-ignore-end */
@@ -213,7 +213,8 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/",
         "/epics",
-        "/tasks"
+        "/tasks",
+        "/tasks/$taskId/edit"
       ]
     },
     "/": {
@@ -232,7 +233,6 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "tasks.route.tsx",
       "children": [
         "/tasks/",
-        "/tasks/$taskId/edit",
         "/tasks/$taskId/"
       ]
     },
@@ -257,8 +257,7 @@ export const routeTree = rootRoute.addChildren({
       "parent": "/epics"
     },
     "/tasks/$taskId/edit": {
-      "filePath": "tasks.$taskId.edit.tsx",
-      "parent": "/tasks"
+      "filePath": "tasks_.$taskId.edit.tsx"
     },
     "/epics/$epicId/": {
       "filePath": "epics/$epicId/index.tsx",
