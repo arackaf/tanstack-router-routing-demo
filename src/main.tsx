@@ -12,6 +12,8 @@ function customSerialize(input: Record<string, any>): string {
     })
   );
 
+  console.log({ input: JSON.stringify(input), trimmed: JSON.stringify(trimmed) });
+
   return JSON.stringify(trimmed);
 }
 
