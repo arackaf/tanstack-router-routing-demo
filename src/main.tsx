@@ -5,20 +5,8 @@ import { RouterProvider, createRouter, parseSearchWith, stringifySearchWith } fr
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
 
-function customSerialize(input: Record<string, any>): string {
-  const trimmed = Object.fromEntries(
-    Object.entries(input).filter(([_k, val]) => {
-      return !(val === "" || (Array.isArray(val) && val.length === 0));
-    })
-  );
-
-  console.log({ input: JSON.stringify(input), trimmed: JSON.stringify(trimmed) });
-
-  return JSON.stringify(trimmed);
-}
-
 // Create a new router instance
-const router = createRouter({ routeTree, parseSearch: parseSearchWith(JSON.parse), stringifySearch: stringifySearchWith(customSerialize) });
+const router = createRouter({ routeTree });
 
 // Register the router instance for type safety
 declare module "@tanstack/react-router" {

@@ -6,6 +6,7 @@ const route = getRouteApi("/epics/$epicId/milestones/");
 export const MilestoneSearch: FC<{}> = () => {
   const { epicId } = route.useParams();
   const { page, search, tags } = route.useSearch();
+  console.log({ page, search, tags });
   const tag1 = useRef<HTMLInputElement>(null as unknown as HTMLInputElement);
   const tag2 = useRef<HTMLInputElement>(null as unknown as HTMLInputElement);
   const tag3 = useRef<HTMLInputElement>(null as unknown as HTMLInputElement);
@@ -17,23 +18,26 @@ export const MilestoneSearch: FC<{}> = () => {
   const pageDown = () => {
     navigate({
       search: (prev) => {
-        return { ...prev, page: prev.page - 1 };
+        return { ...prev, page: (prev.page || 0) - 1 };
       },
     });
   };
   const pageUp = () => {
     navigate({
       search: (prev) => {
-        return { ...prev, page: prev.page + 1 };
+        return { ...prev, page: (prev.page || 0) + 1 };
       },
     });
   };
   const updateSearchParams = () => {
-    const tags = [tag1.current.value, tag2.current.value, tag3.current.value].filter((val) => val);
+    let tags: any = [tag1.current.value, tag2.current.value, tag3.current.value].filter((val) => val);
+    if (tags.length === 0) {
+      tags = undefined;
+    }
 
     navigate({
       search: (prev) => {
-        return { ...prev, search: searchRef.current.value || "", tags: tags };
+        return { ...prev, search: searchRef.current.value, tags };
       },
     });
   };

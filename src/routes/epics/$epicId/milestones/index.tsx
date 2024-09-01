@@ -18,10 +18,10 @@ export const Route = createFileRoute("/epics/$epicId/milestones/")({
     return {
       page: Number(search.page ?? "1") ?? 1,
       search: (search.search as string) || "",
-      tags: [],
+      tags: Array.isArray(search.tags) ? search.tags : [],
     };
   },
-  component: () => {
+  component: ({}) => {
     const { epicId } = Route.useParams();
     const { page, search, tags } = Route.useSearch();
 
@@ -29,7 +29,7 @@ export const Route = createFileRoute("/epics/$epicId/milestones/")({
       <div className="flex flex-col gap-3 p-3">
         <div>Epic: {epicId}</div>
         <div>Current search values</div>
-        {/* <MilestoneSearch /> */}
+        <MilestoneSearch />
         <pre>{JSON.stringify({ page, search, tags })}</pre>
         {milestones.map((milestone, idx) => {
           return (
