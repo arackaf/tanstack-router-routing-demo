@@ -6,13 +6,13 @@ const route = getRouteApi("/epics/$epicId/milestones/");
 export const MilestoneSearch: FC<{}> = () => {
   const { epicId } = route.useParams();
   const { page, search, tags } = route.useSearch();
-  console.log({ page, search, tags });
+
   const tag1 = useRef<HTMLInputElement>(null as unknown as HTMLInputElement);
   const tag2 = useRef<HTMLInputElement>(null as unknown as HTMLInputElement);
   const tag3 = useRef<HTMLInputElement>(null as unknown as HTMLInputElement);
 
   const searchRef = useRef<HTMLInputElement>(null as unknown as HTMLInputElement);
-  const [currentPage, setPage] = useState(page);
+
   const navigate = useNavigate({ from: "/epics/$epicId/milestones/" });
 
   const pageDown = () => {
