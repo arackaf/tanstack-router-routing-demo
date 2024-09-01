@@ -46,7 +46,7 @@ export const MilestoneSearch: FC<{}> = () => {
     <div className="flex flex-col gap-3">
       <div>Epic {epicId}</div>
       <div>
-        Search: <pre>{JSON.stringify({ page, search, tags })}</pre>
+        Search values in component: <pre>{JSON.stringify({ page, search, tags })}</pre>
       </div>
       <hr className="my-5" />
       <div>Tags</div>
@@ -59,17 +59,17 @@ export const MilestoneSearch: FC<{}> = () => {
       <div className="flex gap-2">
         <input type="text" className="border p-2 w-13" ref={searchRef} />
       </div>
+      <div>
+        <button className="border p-2" onClick={updateSearchParams}>
+          Update
+        </button>
+      </div>
       <div className="flex gap-2">
         <button disabled={page == 1} className="border p-2" onClick={pageDown}>
           Page Down
         </button>
         <button className="border p-2" onClick={pageUp}>
           Page Up
-        </button>
-      </div>
-      <div>
-        <button className="border p-2" onClick={updateSearchParams}>
-          Update
         </button>
       </div>
     </div>

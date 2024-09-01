@@ -28,9 +28,10 @@ export const Route = createFileRoute("/epics/$epicId/milestones/")({
     return (
       <div className="flex flex-col gap-3 p-3">
         <div>Epic: {epicId}</div>
+        <div>Search values in route</div>
+        <pre>{JSON.stringify({ page, search, tags })}</pre>
         <div>Current search values</div>
         <MilestoneSearch />
-        <pre>{JSON.stringify({ page, search, tags })}</pre>
         {milestones.map((milestone, idx) => {
           return (
             <div className="flex gap-2" key={idx}>
