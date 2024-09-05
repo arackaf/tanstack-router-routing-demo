@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/tasks/")({
   component: Index,
@@ -18,12 +18,6 @@ function Index() {
         {tasks.map((t, idx) => (
           <div key={idx} className="flex gap-3">
             <div>{t.title}</div>
-            <Link to="/tasks/$taskId" params={{ taskId: t.id }}>
-              View
-            </Link>
-            <Link to="/tasks/$taskId/edit" params={{ taskId: t.id }}>
-              Edit
-            </Link>
           </div>
         ))}
       </div>

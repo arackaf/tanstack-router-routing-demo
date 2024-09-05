@@ -11,212 +11,32 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as TasksRouteImport } from './routes/tasks.route'
-import { Route as EpicsRouteImport } from './routes/epics/route'
-import { Route as IndexImport } from './routes/index'
 import { Route as TasksIndexImport } from './routes/tasks.index'
-import { Route as EpicsIndexImport } from './routes/epics/index'
-import { Route as TasksTaskIdIndexImport } from './routes/tasks.$taskId.index'
-import { Route as EpicsEpicIdIndexImport } from './routes/epics/$epicId/index'
-import { Route as TasksTaskIdEditImport } from './routes/tasks_.$taskId.edit'
-import { Route as EpicsEpicIdEditImport } from './routes/epics/$epicId/edit'
-import { Route as EpicsEpicIdMilestonesRouteImport } from './routes/epics/$epicId/milestones/route'
-import { Route as EpicsEpicIdMilestonesIndexImport } from './routes/epics/$epicId/milestones/index'
-import { Route as EpicsEpicIdMilestonesMilestoneIdIndexImport } from './routes/epics/$epicId/milestones/$milestoneId.index'
-import { Route as EpicsEpicIdMilestonesMilestoneIdEditImport } from './routes/epics/$epicId/milestones_/$milestoneId.edit'
 
 // Create/Update Routes
 
-const TasksRouteRoute = TasksRouteImport.update({
-  path: '/tasks',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const EpicsRouteRoute = EpicsRouteImport.update({
-  path: '/epics',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const IndexRoute = IndexImport.update({
-  path: '/',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const TasksIndexRoute = TasksIndexImport.update({
-  path: '/',
-  getParentRoute: () => TasksRouteRoute,
-} as any)
-
-const EpicsIndexRoute = EpicsIndexImport.update({
-  path: '/',
-  getParentRoute: () => EpicsRouteRoute,
-} as any)
-
-const TasksTaskIdIndexRoute = TasksTaskIdIndexImport.update({
-  path: '/$taskId/',
-  getParentRoute: () => TasksRouteRoute,
-} as any)
-
-const EpicsEpicIdIndexRoute = EpicsEpicIdIndexImport.update({
-  path: '/$epicId/',
-  getParentRoute: () => EpicsRouteRoute,
-} as any)
-
-const TasksTaskIdEditRoute = TasksTaskIdEditImport.update({
-  path: '/tasks/$taskId/edit',
+  path: '/tasks/',
   getParentRoute: () => rootRoute,
 } as any)
-
-const EpicsEpicIdEditRoute = EpicsEpicIdEditImport.update({
-  path: '/$epicId/edit',
-  getParentRoute: () => EpicsRouteRoute,
-} as any)
-
-const EpicsEpicIdMilestonesRouteRoute = EpicsEpicIdMilestonesRouteImport.update(
-  {
-    path: '/$epicId/milestones',
-    getParentRoute: () => EpicsRouteRoute,
-  } as any,
-)
-
-const EpicsEpicIdMilestonesIndexRoute = EpicsEpicIdMilestonesIndexImport.update(
-  {
-    path: '/',
-    getParentRoute: () => EpicsEpicIdMilestonesRouteRoute,
-  } as any,
-)
-
-const EpicsEpicIdMilestonesMilestoneIdIndexRoute =
-  EpicsEpicIdMilestonesMilestoneIdIndexImport.update({
-    path: '/$milestoneId/',
-    getParentRoute: () => EpicsEpicIdMilestonesRouteRoute,
-  } as any)
-
-const EpicsEpicIdMilestonesMilestoneIdEditRoute =
-  EpicsEpicIdMilestonesMilestoneIdEditImport.update({
-    path: '/$epicId/milestones/$milestoneId/edit',
-    getParentRoute: () => EpicsRouteRoute,
-  } as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/epics': {
-      id: '/epics'
-      path: '/epics'
-      fullPath: '/epics'
-      preLoaderRoute: typeof EpicsRouteImport
-      parentRoute: typeof rootRoute
-    }
-    '/tasks': {
-      id: '/tasks'
-      path: '/tasks'
-      fullPath: '/tasks'
-      preLoaderRoute: typeof TasksRouteImport
-      parentRoute: typeof rootRoute
-    }
-    '/epics/': {
-      id: '/epics/'
-      path: '/'
-      fullPath: '/epics/'
-      preLoaderRoute: typeof EpicsIndexImport
-      parentRoute: typeof EpicsRouteImport
-    }
     '/tasks/': {
       id: '/tasks/'
-      path: '/'
-      fullPath: '/tasks/'
+      path: '/tasks'
+      fullPath: '/tasks'
       preLoaderRoute: typeof TasksIndexImport
-      parentRoute: typeof TasksRouteImport
-    }
-    '/epics/$epicId/milestones': {
-      id: '/epics/$epicId/milestones'
-      path: '/$epicId/milestones'
-      fullPath: '/epics/$epicId/milestones'
-      preLoaderRoute: typeof EpicsEpicIdMilestonesRouteImport
-      parentRoute: typeof EpicsRouteImport
-    }
-    '/epics/$epicId/edit': {
-      id: '/epics/$epicId/edit'
-      path: '/$epicId/edit'
-      fullPath: '/epics/$epicId/edit'
-      preLoaderRoute: typeof EpicsEpicIdEditImport
-      parentRoute: typeof EpicsRouteImport
-    }
-    '/tasks/$taskId/edit': {
-      id: '/tasks/$taskId/edit'
-      path: '/tasks/$taskId/edit'
-      fullPath: '/tasks/$taskId/edit'
-      preLoaderRoute: typeof TasksTaskIdEditImport
       parentRoute: typeof rootRoute
-    }
-    '/epics/$epicId/': {
-      id: '/epics/$epicId/'
-      path: '/$epicId'
-      fullPath: '/epics/$epicId'
-      preLoaderRoute: typeof EpicsEpicIdIndexImport
-      parentRoute: typeof EpicsRouteImport
-    }
-    '/tasks/$taskId/': {
-      id: '/tasks/$taskId/'
-      path: '/$taskId'
-      fullPath: '/tasks/$taskId'
-      preLoaderRoute: typeof TasksTaskIdIndexImport
-      parentRoute: typeof TasksRouteImport
-    }
-    '/epics/$epicId/milestones/': {
-      id: '/epics/$epicId/milestones/'
-      path: '/'
-      fullPath: '/epics/$epicId/milestones/'
-      preLoaderRoute: typeof EpicsEpicIdMilestonesIndexImport
-      parentRoute: typeof EpicsEpicIdMilestonesRouteImport
-    }
-    '/epics/$epicId/milestones/$milestoneId/edit': {
-      id: '/epics/$epicId/milestones/$milestoneId/edit'
-      path: '/$epicId/milestones/$milestoneId/edit'
-      fullPath: '/epics/$epicId/milestones/$milestoneId/edit'
-      preLoaderRoute: typeof EpicsEpicIdMilestonesMilestoneIdEditImport
-      parentRoute: typeof EpicsRouteImport
-    }
-    '/epics/$epicId/milestones/$milestoneId/': {
-      id: '/epics/$epicId/milestones/$milestoneId/'
-      path: '/$milestoneId'
-      fullPath: '/epics/$epicId/milestones/$milestoneId'
-      preLoaderRoute: typeof EpicsEpicIdMilestonesMilestoneIdIndexImport
-      parentRoute: typeof EpicsEpicIdMilestonesRouteImport
     }
   }
 }
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren({
-  IndexRoute,
-  EpicsRouteRoute: EpicsRouteRoute.addChildren({
-    EpicsIndexRoute,
-    EpicsEpicIdMilestonesRouteRoute:
-      EpicsEpicIdMilestonesRouteRoute.addChildren({
-        EpicsEpicIdMilestonesIndexRoute,
-        EpicsEpicIdMilestonesMilestoneIdIndexRoute,
-      }),
-    EpicsEpicIdEditRoute,
-    EpicsEpicIdIndexRoute,
-    EpicsEpicIdMilestonesMilestoneIdEditRoute,
-  }),
-  TasksRouteRoute: TasksRouteRoute.addChildren({
-    TasksIndexRoute,
-    TasksTaskIdIndexRoute,
-  }),
-  TasksTaskIdEditRoute,
-})
+export const routeTree = rootRoute.addChildren({ TasksIndexRoute })
 
 /* prettier-ignore-end */
 
@@ -226,74 +46,11 @@ export const routeTree = rootRoute.addChildren({
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/",
-        "/epics",
-        "/tasks",
-        "/tasks/$taskId/edit"
+        "/tasks/"
       ]
-    },
-    "/": {
-      "filePath": "index.tsx"
-    },
-    "/epics": {
-      "filePath": "epics/route.tsx",
-      "children": [
-        "/epics/",
-        "/epics/$epicId/milestones",
-        "/epics/$epicId/edit",
-        "/epics/$epicId/",
-        "/epics/$epicId/milestones/$milestoneId/edit"
-      ]
-    },
-    "/tasks": {
-      "filePath": "tasks.route.tsx",
-      "children": [
-        "/tasks/",
-        "/tasks/$taskId/"
-      ]
-    },
-    "/epics/": {
-      "filePath": "epics/index.tsx",
-      "parent": "/epics"
     },
     "/tasks/": {
-      "filePath": "tasks.index.tsx",
-      "parent": "/tasks"
-    },
-    "/epics/$epicId/milestones": {
-      "filePath": "epics/$epicId/milestones/route.tsx",
-      "parent": "/epics",
-      "children": [
-        "/epics/$epicId/milestones/",
-        "/epics/$epicId/milestones/$milestoneId/"
-      ]
-    },
-    "/epics/$epicId/edit": {
-      "filePath": "epics/$epicId/edit.tsx",
-      "parent": "/epics"
-    },
-    "/tasks/$taskId/edit": {
-      "filePath": "tasks_.$taskId.edit.tsx"
-    },
-    "/epics/$epicId/": {
-      "filePath": "epics/$epicId/index.tsx",
-      "parent": "/epics"
-    },
-    "/tasks/$taskId/": {
-      "filePath": "tasks.$taskId.index.tsx",
-      "parent": "/tasks"
-    },
-    "/epics/$epicId/milestones/": {
-      "filePath": "epics/$epicId/milestones/index.tsx",
-      "parent": "/epics/$epicId/milestones"
-    },
-    "/epics/$epicId/milestones/$milestoneId/edit": {
-      "filePath": "epics/$epicId/milestones_/$milestoneId.edit.tsx",
-      "parent": "/epics"
-    },
-    "/epics/$epicId/milestones/$milestoneId/": {
-      "filePath": "epics/$epicId/milestones/$milestoneId.index.tsx",
-      "parent": "/epics/$epicId/milestones"
+      "filePath": "tasks.index.tsx"
     }
   }
 }

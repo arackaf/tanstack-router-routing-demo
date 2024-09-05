@@ -3,6 +3,8 @@
     "strict": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
-    "lib": ["ESNext", "DOM"]
+    "lib": ["ESNext", "DOM"],
+    "skipLibCheck": true,
+    "noEmit": true
   }
 }
