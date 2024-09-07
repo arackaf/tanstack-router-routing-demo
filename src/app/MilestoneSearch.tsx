@@ -17,15 +17,17 @@ export const MilestoneSearch: FC<{}> = () => {
 
   const pageDown = () => {
     navigate({
+      to: ".",
       search: (prev) => {
-        return { ...prev, page: (prev.page || 0) - 1 };
+        return { ...prev, page: prev.page - 1 };
       },
     });
   };
   const pageUp = () => {
     navigate({
+      to: ".",
       search: (prev) => {
-        return { ...prev, page: (prev.page || 0) + 1 };
+        return { ...prev, page: prev.page + 1 };
       },
     });
   };
@@ -36,6 +38,7 @@ export const MilestoneSearch: FC<{}> = () => {
     }
 
     navigate({
+      to: ".",
       search: (prev) => {
         return { ...prev, search: searchRef.current.value, tags };
       },
