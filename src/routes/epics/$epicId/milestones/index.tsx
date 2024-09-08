@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, SearchSchemaInput } from "@tanstack/react-router";
 import { MilestoneSearch } from "../../../../app/MilestoneSearch";
 
 const milestones = [
@@ -13,8 +13,14 @@ type SearchParams = {
   tags: string[];
 };
 
+type SearchParamsInput = Partial<{
+  page: number;
+  search: string;
+  tags: string[];
+}>;
+
 export const Route = createFileRoute("/epics/$epicId/milestones/")({
-  validateSearch(search: Record<string, unknown>): SearchParams {
+  validateSearch(search: SearchParamsInput & SearchSchemaInput): SearchParams {
     return {
       page: Number(search.page ?? "1") ?? 1,
       search: (search.search as string) || "",
