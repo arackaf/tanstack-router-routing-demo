@@ -36,7 +36,39 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren({ TasksIndexRoute })
+export interface FileRoutesByFullPath {
+  '/tasks': typeof TasksIndexRoute
+}
+
+export interface FileRoutesByTo {
+  '/tasks': typeof TasksIndexRoute
+}
+
+export interface FileRoutesById {
+  __root__: typeof rootRoute
+  '/tasks/': typeof TasksIndexRoute
+}
+
+export interface FileRouteTypes {
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths: '/tasks'
+  fileRoutesByTo: FileRoutesByTo
+  to: '/tasks'
+  id: '__root__' | '/tasks/'
+  fileRoutesById: FileRoutesById
+}
+
+export interface RootRouteChildren {
+  TasksIndexRoute: typeof TasksIndexRoute
+}
+
+const rootRouteChildren: RootRouteChildren = {
+  TasksIndexRoute: TasksIndexRoute,
+}
+
+export const routeTree = rootRoute
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()
 
 /* prettier-ignore-end */
 
