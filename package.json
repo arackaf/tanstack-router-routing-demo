@@ -12,14 +12,15 @@
   "license": "ISC",
   "dependencies": {
     "@tanstack/react-query": "^5.52.1",
-    "@tanstack/react-router": "^1.56.2",
-    "@tanstack/router-cli": "^1.56.2",
-    "react": "^18.3.1",
+    "@tanstack/react-router": "^1.92.11",
+    "@tanstack/router-cli": "^1.92.11",
+    "react": "19",
+    "react-dom": "19",
     "typescript": "^5.5.4"
   },
   "devDependencies": {
     "@tanstack/router-devtools": "^1.35.3",
-    "@tanstack/router-vite-plugin": "^1.35.4",
+    "@tanstack/router-vite-plugin": "^1.92.11",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0"
   }
