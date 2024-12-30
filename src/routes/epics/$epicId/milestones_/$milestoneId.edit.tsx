@@ -1,12 +1,14 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute("/epics/$epicId/milestones/$milestoneId/edit")({
+export const Route = createFileRoute(
+  '/epics/$epicId/milestones_/$milestoneId/edit',
+)({
   component: () => {
-    const { epicId, milestoneId } = Route.useParams();
+    const { epicId, milestoneId } = Route.useParams()
     return (
       <div className="p-3">
         Editing milestone {milestoneId} in Epic {epicId}
       </div>
-    );
+    )
   },
-});
+})
