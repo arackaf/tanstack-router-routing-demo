@@ -19,7 +19,7 @@ export const MilestoneSearch: FC<{}> = () => {
     navigate({
       to: ".",
       search: (prev) => {
-        return { ...prev, page: prev.page - 1 };
+        return { ...prev, page: (prev.page ?? 1) - 1 };
       },
     });
   };
@@ -27,7 +27,7 @@ export const MilestoneSearch: FC<{}> = () => {
     navigate({
       to: ".",
       search: (prev) => {
-        return { ...prev, page: prev.page + 1 };
+        return { ...prev, page: (prev.page ?? 1) + 1 };
       },
     });
   };

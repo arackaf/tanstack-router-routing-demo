@@ -13,18 +13,16 @@ type SearchParams = {
   tags: string[];
 };
 
-type SearchParamsInput = Partial<{
-  page: number;
-  search: string;
-  tags: string[];
-}>;
-
 export const Route = createFileRoute("/epics/$epicId/milestones/")({
-  validateSearch(search: SearchParamsInput & SearchSchemaInput): SearchParams {
+  validateSearch(search: Record<string, unknown>): Partial<SearchParams> {
+    const page = Number(search.page ?? "1") ?? 1;
+    const searchVal = (search.search as string) || "";
+    const tags = Array.isArray(search.tags) ? search.tags : [];
+
     return {
-      page: Number(search.page ?? "1") ?? 1,
-      search: (search.search as string) || "",
-      tags: Array.isArray(search.tags) ? search.tags : [],
+      page: page === 1 ? undefined : page,
+      search: searchVal || undefined,
+      tags: tags.length ? tags : undefined,
     };
   },
   component: ({}) => {
